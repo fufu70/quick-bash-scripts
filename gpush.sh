@@ -3,6 +3,9 @@
 
 git status
 
+# Get the current branch
+CURRENT_BRANCH = "$(git rev-parse --abbrev-ref HEAD)"
+
 echo -n "Would you like to continue [y/N]: "
 
 read CONTINUE
@@ -12,10 +15,10 @@ if [ "$CONTINUE" == "y" ]; then
 
 	read MESSAGE
 
-	git pull origin master
+	git pull origin $CURRENT_BRANCH
 	git add .
 	git commit -m "${MESSAGE}"
-	git push origin master
+	git push origin $CURRENT_BRANCH
 else
 	echo "Commit will not be pushed."
 fi
