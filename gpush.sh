@@ -4,7 +4,7 @@
 git status
 
 # Get the current branch
-CURRENT_BRANCH = "$(git rev-parse --abbrev-ref HEAD)"
+CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
 echo -n "Would you like to continue [y/N]: "
 
