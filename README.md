@@ -1,7 +1,7 @@
 # quick-bash-scripts
 Contains basic bash scripts for faster git usage.
 
-To add `gpush.sh`, `init-php-vagrant.sh`, and `local-ip-host.sh` on to your path simply run the commands below:
+To add `gpush.sh`, `init-php-vagrant.sh`, `android-screencap.sh`, and `local-ip-host.sh` on to your path simply run the commands below:
 
 ```
 $ cd quick-bash-scripts
