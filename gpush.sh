@@ -15,6 +15,18 @@ if [ "$CONTINUE" == "y" ]; then
 
 	read MESSAGE
 
+	WORD_COUNT=${#MESSAGE}
+	if [ "$WORD_COUNT" -lt 5 ]; then
+		
+		echo "Commit message, '$MESSAGE', is fairly short. Are you sure you want to commit this message? [y/N]: "
+
+		read CONTINUE
+		if [ "$CONTINUE" != "y" ]; then
+			echo "Commit will not be pushed."
+			exit 0
+		fi
+	fi
+
 	git pull origin $CURRENT_BRANCH
 	git add .
 	git commit -m "${MESSAGE}"
