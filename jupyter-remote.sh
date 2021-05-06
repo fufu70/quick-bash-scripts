@@ -3,8 +3,12 @@
 #  1.) Host - The name of the host or the IP address
 #  2.) Username - The username you're using to ssh into the host
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 cleanup() {
-    echo -e "\n\nCLEANING UP JUPYTER REMOTELY!\n\n"
+    printf "${RED}\n\nCLEANING UP JUPYTER REMOTELY!\n\n${NC}"
     rv=$?
     ssh $1@$2 'kill -9 $(cat pid.txt); rm jupyter.log pid.txt'
     ssh $1@$2 'python3 -m notebook stop 8889'
@@ -12,13 +16,13 @@ cleanup() {
     exit $rv
 }
 
-echo -n "HOST [192.39.192.2]: "
-
-read HOST
-
 echo -n "USERNAME [root]: "
 
 read USERNAME
+
+echo -n "HOST [192.39.192.2]: "
+
+read HOST
 
 trap "cleanup $USERNAME $HOST" EXIT
 
@@ -27,8 +31,8 @@ JUPYTER_OUTPUT=$(ssh $USERNAME@$HOST 'python3 -m notebook list')
 URL=$(echo $JUPYTER_OUTPUT | sed 's/Currently running servers: //g' | sed 's/ ::.*//g')
 ssh -fNT -L 8889:localhost:8889 $USERNAME@$HOST
 
-echo -e "\n\n\tJupyter notebook runnig remotely from $HOST"
-echo -e "\t\tOpen at: $URL"
+printf "\n\n\t${GREEN}Jupyter notebook runnig remotely from ${HOST}${NC}\n"
+printf "\t\t${GREEN}Open at:${NC} $URL"
 
 open -a Safari $URL
 
