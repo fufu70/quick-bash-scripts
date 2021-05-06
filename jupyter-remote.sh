@@ -12,7 +12,7 @@ cleanup() {
     rv=$?
     ssh $1@$2 'kill -9 $(cat pid.txt); rm jupyter.log pid.txt'
     ssh $1@$2 'python3 -m notebook stop 8889'
-    echo -e "\n\nJUPYTER EXITED!\n\n"
+    printf "\n\n${GREEN}JUPYTER EXITED!${NC}\n\n"
     exit $rv
 }
 
@@ -31,8 +31,8 @@ JUPYTER_OUTPUT=$(ssh $USERNAME@$HOST 'python3 -m notebook list')
 URL=$(echo $JUPYTER_OUTPUT | sed 's/Currently running servers: //g' | sed 's/ ::.*//g')
 ssh -fNT -L 8889:localhost:8889 $USERNAME@$HOST
 
-printf "\n\n\t${GREEN}Jupyter notebook runnig remotely from ${HOST}${NC}\n"
-printf "\t\t${GREEN}Open at:${NC} $URL"
+printf "\n\n${GREEN}Jupyter notebook runnig remotely from ${HOST}${NC}\n"
+printf "\t${GREEN}Open at:${NC} $URL"
 
 open -a Safari $URL
 
